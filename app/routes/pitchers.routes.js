@@ -35,4 +35,6 @@ module.exports = app => {
     "/sessions/one/chartDataAvg/:sessionID/",
     pitchers.getChartDataSessionAvg
   );
+
+  app.get("/sessions/filter/:sessionID/:lowVelo/:highVelo/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/", pitchers.filterSession);
 };

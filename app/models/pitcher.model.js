@@ -224,4 +224,33 @@ Pitcher.getChartDataSessionAvg = (sessionID, pitchType, result) => {
   );
 };
 
+Pitcher.filterSession = (sessionID, lowVelo, highVelo, lowSpin, highSpin, lowVbreak, highVbreak, lowHbreak, highHbreak, lowRheight, highRheight, lowRside, highRside, result) => {
+  sql.query(
+    `select * from captured_data where sessionID=${sessionID} 
+      and (speed between ${lowVelo} and ${highVelo}) 
+      and (spinEfficiency between ${lowSpin} and ${highSpin}) 
+      and (verticalBreak between ${lowVbreak} and ${highVbreak}) 
+      and (horizontalBreak between ${lowHbreak} and ${highHbreak})
+      and (releaseHeight between ${lowRheight} and ${highRheight})
+      and (releaseSide between ${lowRside} and ${highRside});`,
+    (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.length) {
+        console.log("Found Values: ", res);
+        result(null, res);
+        return;
+      }
+
+      //not found
+      result({ kind: "not_found" }, null);
+    }
+  );
+};
+
+
 module.exports = Pitcher;
