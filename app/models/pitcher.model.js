@@ -60,6 +60,27 @@ Pitcher.getSessionsById = (pitcherId, result) => {
     }
   );
 };
+Pitcher.getSessionsByIdWithDate = (pitcherId, fromDate, toDate, result) => {
+  sql.query(
+    `SELECT * FROM session s where s.pitcher__id =${pitcherId} and s.date BETWEEN '${fromDate}' and '${toDate}' ORDER BY s.date;`,
+    (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.length) {
+        console.log("found session: ", res);
+        result(null, res);
+        return;
+      }
+
+      //not found
+      result({ kind: "not_found" }, null);
+    }
+  );
+};
 
 Pitcher.getMaxAvgPitchType = (sessionID, pitchType, result) => {
   sql.query(
@@ -107,7 +128,7 @@ Pitcher.getMaxAvg = (pitcherId, pitchType, result) => {
 
 Pitcher.getSessionData = (sessionID, result) => {
   sql.query(
-    `select Pitch_Type_pitchType, releaseSide, releaseHeight, horizontalBreak, verticalBreak, spin, trueSpin, szx, szy, speed, spinConfidence, spinEfficiency, launchAngle, rifleSpin, horizontalAngle, gyroDegree from captured_data where sessionID=${sessionID};`,
+    `select Pitch_Type_pitchType, strike, releaseSide, releaseHeight, horizontalBreak, verticalBreak, spin, trueSpin, szx, szy, speed, spinConfidence, spinEfficiency, launchAngle, rifleSpin, horizontalAngle, gyroDegree from captured_data where sessionID=${sessionID};`,
     (err, res) => {
       if (err) {
         console.log("error", err);
@@ -224,10 +245,11 @@ Pitcher.getChartDataSessionAvg = (sessionID, pitchType, result) => {
   );
 };
 
-Pitcher.filterSession = (sessionID, lowVelo, highVelo, lowSpin, highSpin, lowVbreak, highVbreak, lowHbreak, highHbreak, lowRheight, highRheight, lowRside, highRside, result) => {
+Pitcher.filterSession = (sessionID, lowVelo, highVelo, lowTotalSpin, highTotalSpin, lowSpin, highSpin, lowVbreak, highVbreak, lowHbreak, highHbreak, lowRheight, highRheight, lowRside, highRside, result) => {
   sql.query(
     `select * from captured_data where sessionID=${sessionID} 
       and (speed between ${lowVelo} and ${highVelo}) 
+      and (spin between ${lowTotalSpin} and ${highTotalSpin})
       and (spinEfficiency between ${lowSpin} and ${highSpin}) 
       and (verticalBreak between ${lowVbreak} and ${highVbreak}) 
       and (horizontalBreak between ${lowHbreak} and ${highHbreak})

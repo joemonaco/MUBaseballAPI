@@ -44,6 +44,22 @@ exports.findSessionsById = (req, res) => {
     } else res.send(data);
   });
 };
+exports.findSessionsByIdWithDate = (req, res) => {
+  Pitcher.getSessionsByIdWithDate(req.params.pitcherId,req.params.fromDate, req.params.toDate, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Session with PitcherId ${req.params.pitcherId}.`
+        });
+      } else {
+        res.status(500).send({
+          message:
+            "Error retrieving Session with PitcherId " + req.params.pitcherId
+        });
+      }
+    } else res.send(data);
+  });
+};
 
 exports.getMaxAvgPitchType = (req, res) => {
   Pitcher.getMaxAvgPitchType(
@@ -187,6 +203,8 @@ exports.filterSession = (req, res) => {
     req.params.sessionID, 
     req.params.lowVelo, 
     req.params.highVelo, 
+    req.params.lowTotalSpin,
+    req.params.highTotalSpin,
     req.params.lowSpin, 
     req.params.highSpin, 
     req.params.lowVbreak, 
