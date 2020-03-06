@@ -385,7 +385,7 @@ Pitcher.filterAvgChartSessionSingle = (
   );
 };
 
-Pitcher.filterChartAllSession = (
+Pitcher.filterChartAllSessions = (
   pitcherId,
   lowVelo,
   highVelo,
@@ -433,7 +433,7 @@ Pitcher.filterChartAllSession = (
   );
 };
 
-Pitcher.filterAvgChartAllSession = (
+Pitcher.filterAvgChartAllSessions = (
   pitcherId,
   lowVelo,
   highVelo,

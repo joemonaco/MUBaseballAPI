@@ -305,8 +305,8 @@ exports.filterAvgChartSessionSingle = (req, res) => {
   );
 };
 
-exports.filterChartAllSession = (req, res) => {
-  Pitcher.filterChartAllSession(
+exports.filterChartAllSessions = (req, res) => {
+  Pitcher.filterChartAllSessions(
     req.params.pitcherId,
     req.params.lowVelo,
     req.params.highVelo,
@@ -339,8 +339,8 @@ exports.filterChartAllSession = (req, res) => {
   );
 };
 
-exports.filterAvgChartAllSession = (req, res) => {
-  Pitcher.filterAvgChartAllSession(
+exports.filterAvgChartAllSessions = (req, res) => {
+  Pitcher.filterAvgChartAllSessions(
     req.params.pitcherId,
     req.params.lowVelo,
     req.params.highVelo,
