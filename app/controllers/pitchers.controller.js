@@ -238,7 +238,7 @@ exports.filterSession = (req, res) => {
 };
 
 exports.filterChartSessionSingle = (req, res) => {
-  Pitcher.filterSession(
+  Pitcher.filterChartSessionSingle(
     req.params.sessionID,
     req.params.lowVelo,
     req.params.highVelo,
@@ -272,7 +272,7 @@ exports.filterChartSessionSingle = (req, res) => {
 };
 
 exports.filterAvgChartSessionSingle = (req, res) => {
-  Pitcher.filterSession(
+  Pitcher.filterAvgChartSessionSingle(
     req.params.sessionID,
     req.params.lowVelo,
     req.params.highVelo,

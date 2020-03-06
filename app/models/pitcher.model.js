@@ -317,7 +317,8 @@ Pitcher.filterChartSessionSingle = (
       and (verticalBreak between ${lowVbreak} and ${highVbreak}) 
       and (horizontalBreak between ${lowHbreak} and ${highHbreak})
       and (releaseHeight between ${lowRheight} and ${highRheight})
-      and (releaseSide between ${lowRside} and ${highRside});`,
+      and (releaseSide between ${lowRside} and ${highRside})
+      ORDER BY Pitch_Type_pitchType ASC;`,
     (err, res) => {
       if (err) {
         console.log("error", err);
@@ -363,7 +364,8 @@ Pitcher.filterAvgChartSessionSingle = (
       and (verticalBreak between ${lowVbreak} and ${highVbreak}) 
       and (horizontalBreak between ${lowHbreak} and ${highHbreak})
       and (releaseHeight between ${lowRheight} and ${highRheight})
-      and (releaseSide between ${lowRside} and ${highRside});`,
+      and (releaseSide between ${lowRside} and ${highRside})
+      GROUP BY Pitch_Type_pitchType;`,
     (err, res) => {
       if (err) {
         console.log("error", err);
