@@ -383,4 +383,100 @@ Pitcher.filterAvgChartSessionSingle = (
   );
 };
 
+Pitcher.filterChartAllSession = (
+  pitcherId,
+  lowVelo,
+  highVelo,
+  lowTotalSpin,
+  highTotalSpin,
+  lowSpin,
+  highSpin,
+  lowVbreak,
+  highVbreak,
+  lowHbreak,
+  highHbreak,
+  lowRheight,
+  highRheight,
+  lowRside,
+  highRside,
+  result
+) => {
+  sql.query(
+    `select verticalBreak, horizontalBreak, releaseHeight, releaseSide, Pitch_Type_pitchType from captured_data 
+      where Pitcher_pitcher_id = ${pitcherId} 
+      and (speed between ${lowVelo} and ${highVelo}) 
+      and (spin between ${lowTotalSpin} and ${highTotalSpin})
+      and (spinEfficiency between ${lowSpin} and ${highSpin}) 
+      and (verticalBreak between ${lowVbreak} and ${highVbreak}) 
+      and (horizontalBreak between ${lowHbreak} and ${highHbreak})
+      and (releaseHeight between ${lowRheight} and ${highRheight})
+      and (releaseSide between ${lowRside} and ${highRside})
+      order by Pitch_Type_pitchType;`,
+    (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.length) {
+        console.log("Found Values: ", res);
+        result(null, res);
+        return;
+      }
+
+      //not found
+      result({ kind: "not_found" }, null);
+    }
+  );
+};
+
+Pitcher.filterAvgChartAllSession = (
+  pitcherId,
+  lowVelo,
+  highVelo,
+  lowTotalSpin,
+  highTotalSpin,
+  lowSpin,
+  highSpin,
+  lowVbreak,
+  highVbreak,
+  lowHbreak,
+  highHbreak,
+  lowRheight,
+  highRheight,
+  lowRside,
+  highRside,
+  result
+) => {
+  sql.query(
+    `select AVG(verticalBreak), AVG(horizontalBreak), AVG(releaseHeight), AVG(releaseSide), Pitch_Type_pitchType from captured_data 
+      Pitcher_pitcher_id = ${pitcherId}  
+      and (speed between ${lowVelo} and ${highVelo}) 
+      and (spin between ${lowTotalSpin} and ${highTotalSpin})
+      and (spinEfficiency between ${lowSpin} and ${highSpin}) 
+      and (verticalBreak between ${lowVbreak} and ${highVbreak}) 
+      and (horizontalBreak between ${lowHbreak} and ${highHbreak})
+      and (releaseHeight between ${lowRheight} and ${highRheight})
+      and (releaseSide between ${lowRside} and ${highRside})
+      group by Pitch_Type_pitchType;`,
+    (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.length) {
+        console.log("Found Values: ", res);
+        result(null, res);
+        return;
+      }
+
+      //not found
+      result({ kind: "not_found" }, null);
+    }
+  );
+};
+
 module.exports = Pitcher;

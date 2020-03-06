@@ -54,4 +54,14 @@ module.exports = app => {
     "/sessions/one/avg/filter/:sessionID/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/",
     pitchers.filterAvgChartSessionSingle
   );
+
+  app.get(
+    "/sessions/all/filter/:pitcherId/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/",
+    pitchers.filterChartAllSessions
+  );
+
+  app.get(
+    "/sessions/all/avg/filter/:pitcherId/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/",
+    pitchers.filterAvgChartAllSessions
+  );
 };
