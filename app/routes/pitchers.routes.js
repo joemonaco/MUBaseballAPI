@@ -64,4 +64,6 @@ module.exports = app => {
     "/sessions/all/avg/filter/:pitcherId/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/",
     pitchers.filterAvgChartAllSessions
   );
+
+  app.get("/admin", pitchers.getLogData);
 };

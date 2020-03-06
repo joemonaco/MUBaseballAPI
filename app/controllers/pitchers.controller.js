@@ -372,3 +372,19 @@ exports.filterAvgChartAllSessions = (req, res) => {
     }
   );
 };
+
+exports.getLogData = (req, res) => {
+  Pitcher.getLogData((err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found Logs`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving Logs"
+        });
+      }
+    } else res.send(data);
+  });
+};

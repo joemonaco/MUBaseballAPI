@@ -481,4 +481,23 @@ Pitcher.filterAvgChartAllSessions = (
   );
 };
 
+Pitcher.getLogData = result => {
+  sql.query(`select cur_date, num_records from log;`, (err, res) => {
+    if (err) {
+      console.log("error", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("Found Logs: ", res);
+      result(null, res);
+      return;
+    }
+
+    //not found
+    result({ kind: "not_found" }, null);
+  });
+};
+
 module.exports = Pitcher;
