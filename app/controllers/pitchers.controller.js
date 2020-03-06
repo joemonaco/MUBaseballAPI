@@ -45,20 +45,25 @@ exports.findSessionsById = (req, res) => {
   });
 };
 exports.findSessionsByIdWithDate = (req, res) => {
-  Pitcher.getSessionsByIdWithDate(req.params.pitcherId,req.params.fromDate, req.params.toDate, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Not found Session with PitcherId ${req.params.pitcherId}.`
-        });
-      } else {
-        res.status(500).send({
-          message:
-            "Error retrieving Session with PitcherId " + req.params.pitcherId
-        });
-      }
-    } else res.send(data);
-  });
+  Pitcher.getSessionsByIdWithDate(
+    req.params.pitcherId,
+    req.params.fromDate,
+    req.params.toDate,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Session with PitcherId ${req.params.pitcherId}.`
+          });
+        } else {
+          res.status(500).send({
+            message:
+              "Error retrieving Session with PitcherId " + req.params.pitcherId
+          });
+        }
+      } else res.send(data);
+    }
+  );
 };
 
 exports.getMaxAvgPitchType = (req, res) => {
@@ -200,33 +205,102 @@ exports.getChartDataSessionAvg = (req, res) => {
 
 exports.filterSession = (req, res) => {
   Pitcher.filterSession(
-    req.params.sessionID, 
-    req.params.lowVelo, 
-    req.params.highVelo, 
+    req.params.sessionID,
+    req.params.lowVelo,
+    req.params.highVelo,
     req.params.lowTotalSpin,
     req.params.highTotalSpin,
-    req.params.lowSpin, 
-    req.params.highSpin, 
-    req.params.lowVbreak, 
-    req.params.highVbreak, 
-    req.params.lowHbreak, 
-    req.params.highHbreak, 
-    req.params.lowRheight, 
-    req.params.highRheight, 
-    req.params.lowRside, 
-    req.params.highRside, 
+    req.params.lowSpin,
+    req.params.highSpin,
+    req.params.lowVbreak,
+    req.params.highVbreak,
+    req.params.lowHbreak,
+    req.params.highHbreak,
+    req.params.lowRheight,
+    req.params.highRheight,
+    req.params.lowRside,
+    req.params.highRside,
     (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Not found Session with ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
-        });
-      } else {
-        res.status(500).send({
-          message:
-            "Error retrieving Session with PitcherId " + req.params.pitcherId
-        });
-      }
-    } else res.send(data);
-  });
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Session with ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
+          });
+        } else {
+          res.status(500).send({
+            message:
+              "Error retrieving Session with PitcherId " + req.params.pitcherId
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.filterChartSessionSingle = (req, res) => {
+  Pitcher.filterSession(
+    req.params.sessionID,
+    req.params.lowVelo,
+    req.params.highVelo,
+    req.params.lowTotalSpin,
+    req.params.highTotalSpin,
+    req.params.lowSpin,
+    req.params.highSpin,
+    req.params.lowVbreak,
+    req.params.highVbreak,
+    req.params.lowHbreak,
+    req.params.highHbreak,
+    req.params.lowRheight,
+    req.params.highRheight,
+    req.params.lowRside,
+    req.params.highRside,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Session with ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
+          });
+        } else {
+          res.status(500).send({
+            message:
+              "Error retrieving Session with PitcherId " + req.params.pitcherId
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};
+
+exports.filterAvgChartSessionSingle = (req, res) => {
+  Pitcher.filterSession(
+    req.params.sessionID,
+    req.params.lowVelo,
+    req.params.highVelo,
+    req.params.lowTotalSpin,
+    req.params.highTotalSpin,
+    req.params.lowSpin,
+    req.params.highSpin,
+    req.params.lowVbreak,
+    req.params.highVbreak,
+    req.params.lowHbreak,
+    req.params.highHbreak,
+    req.params.lowRheight,
+    req.params.highRheight,
+    req.params.lowRside,
+    req.params.highRside,
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Session with ${req.params.pitcherId}. or pitch type ${req.params.pitchType}`
+          });
+        } else {
+          res.status(500).send({
+            message:
+              "Error retrieving Session with PitcherId " + req.params.pitcherId
+          });
+        }
+      } else res.send(data);
+    }
+  );
 };

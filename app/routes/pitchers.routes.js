@@ -9,7 +9,10 @@ module.exports = app => {
 
   //Get All Sessions by a Pitcher with pitcherID
   app.get("/sessions/all/:pitcherId", pitchers.findSessionsById);
-  app.get("/sessions/date/:pitcherId/:fromDate/:toDate", pitchers.findSessionsByIdWithDate);
+  app.get(
+    "/sessions/date/:pitcherId/:fromDate/:toDate",
+    pitchers.findSessionsByIdWithDate
+  );
 
   //Get max and average velocity for a single session
   app.get("/MaxAvg/one/:sessionID/:pitchType", pitchers.getMaxAvgPitchType);
@@ -37,5 +40,18 @@ module.exports = app => {
     pitchers.getChartDataSessionAvg
   );
 
-  app.get("/sessions/filter/:sessionID/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/", pitchers.filterSession);
+  app.get(
+    "/sessions/filter/:sessionID/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/",
+    pitchers.filterSession
+  );
+
+  app.get(
+    "/sessions/one/filter/:sessionID/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/",
+    pitchers.filterChartSessionSingle
+  );
+
+  app.get(
+    "/sessions/one/avg/filter/:sessionID/:lowVelo/:highVelo/:lowTotalSpin/:highTotalSpin/:lowSpin/:highSpin/:lowVbreak/:highVbreak/:lowHbreak/:highHbreak/:lowRheight/:highRheight/:lowRside/:highRside/",
+    pitchers.filterAvgChartSessionSingle
+  );
 };
